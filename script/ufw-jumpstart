@@ -1,0 +1,24 @@
+[APIGW]
+title=API Gateway Service (KONG)
+description=API Gateway Service Port
+ports=80,443/tcp
+
+[APIMGT]
+title=API Gateway Managment UI (KONGA)
+description=API Gateway Management UI (KONGA)
+ports=1337/tcp
+
+[DOCKERMGT]
+title=Docker Management UI (Portainer)
+description=Docker Management UI (Portainer)
+ports=9000/tcp
+
+[FTP]
+title=FTP Service for file upload
+description=FTP Service for file upload
+ports=20,21/tcp
+
+[HEALTHCHECK]
+title=Jump Start Health check
+description=Jump Start Health check
+ports=8080/tcp
