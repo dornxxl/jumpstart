@@ -231,9 +231,11 @@ fi
 echo "# Finish Generate Docker Environment file"
 
 #Check Docker Image
-echo "# Checking Docker Image"
-$WORKINGDIR/script/chdockerimg.sh
-echo "# Finish Check Docker Image"
+if [ -x $WORKINGDIR/script/chdockerimg.sh ]; then
+	echo "# Checking Docker Image"
+	$WORKINGDIR/script/chdockerimg.sh
+	echo "# Finish Check Docker Image"
+fi
 #Create Config File for JumpStart Docker
 echo "Create Jumpstart Docker Image"
 MONGO_URI="mongodb://mongoadmin:$DBPASSWD@policy-db:27017/?connectTimeoutMS=600000&socketTimeoutMS=600000"
@@ -410,8 +412,8 @@ else
 	exit 1
 fi
 echo "- Init DB"
-dbpwurlenc=`jq -nr --arg v "$DBPASSWD" '$v|@uri'`
-docker run --rm --network api-net pantsel/konga:0.14.9 -c prepare -a postgres -u "postgres://apimgt:$dbpwurlenc@apimgt-db/apimgt"
+#dbpwurlenc=`jq -nr --arg v "$DBPASSWD" '$v|@uri'`
+docker run --rm --network api-net pantsel/konga:0.14.9 -c prepare -a postgres -u "postgres://apimgt:$DBPASSWD@apimgt-db/apimgt"
 if [ $? -eq 0 ]; then
 	echo " Status: Success"
 else
