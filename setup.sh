@@ -236,8 +236,9 @@ if [ -x $WORKINGDIR/script/chdockerimg.sh ]; then
 	$WORKINGDIR/script/chdockerimg.sh
 	echo "# Finish Check Docker Image"
 fi
+
 #Create Config File for JumpStart Docker
-echo "Create Jumpstart Docker Image"
+echo "# Create Jumpstart Docker Image"
 MONGO_URI="mongodb://mongoadmin:$DBPASSWD@policy-db:27017/?connectTimeoutMS=600000&socketTimeoutMS=600000"
 MONGO_DB="gwdb"
 APISERVICE_LOG="/app/log/api.log"
