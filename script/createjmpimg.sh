@@ -67,7 +67,7 @@ fi
 popd
 
 echo "- Create healthcheck docker image"
-pushd $WORKING/../healthcheck
+pushd $WORKINGDIR/../healthcheck
 docker build -t oic/jumpstartvm-healthcheck .
 if [ $? -ne 0 ]; then
 	popd
