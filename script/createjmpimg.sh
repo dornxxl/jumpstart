@@ -32,7 +32,7 @@ else
 	exit 1
 fi
 echo -n "- Generate foldermonitor configuration file ..."
-cat $WORKINGDIR/../foldermonitor/appetings.json.template | jq -M ".CONF.MongoServer=\"$MONGO_URI\" | .CONF.MongoDb=\"$MONGO_DB\" | .CONF.LogPath=\"$LOG_PATH/foldermonitr.log\" | .CONF.TriggerFolder=\"$MONITOR_PATH/landing/\" | .CONF.ErrorFolder=\"$MONITOR_PATH/error/\" | .CONF.InProgressFolder=\"$MONITOR_PATH/processing/\" | .CONF.CompletedFolder=\"$MONITOR_PATH/processed/\"" > $WORKINGDIR/../foldermonitor/appsettings.json
+cat $WORKINGDIR/../foldermonitor/appsettings.json.template | jq -M ".CONF.MongoServer=\"$MONGO_URI\" | .CONF.MongoDb=\"$MONGO_DB\" | .CONF.LogPath=\"$LOG_PATH/foldermonitr.log\" | .CONF.TriggerFolder=\"$MONITOR_PATH/landing/\" | .CONF.ErrorFolder=\"$MONITOR_PATH/error/\" | .CONF.InProgressFolder=\"$MONITOR_PATH/processing/\" | .CONF.CompletedFolder=\"$MONITOR_PATH/processed/\"" > $WORKINGDIR/../foldermonitor/appsettings.json
 if [ $? -eq 0 ]; then
 	echo "done"
 else
@@ -40,7 +40,7 @@ else
 	exit 1
 fi
 echo -n "- Generate healthcheck configuration file ..."
-cat $WORKINGDIR/../healthcheck/appsetings.json.template | jq -M ".CONF.MongoServer=\"$MONGO_URI\" | .CONF.MongoDb=\"$MONGO_DB\" | .CONF.Host=\"http://apiservice:5000\"" > $WORKINGDIR/../healthcheck/appsetings.json
+cat $WORKINGDIR/../healthcheck/appsettings.json.template | jq -M ".CONF.MongoServer=\"$MONGO_URI\" | .CONF.MongoDb=\"$MONGO_DB\" | .CONF.Host=\"http://apiservice:5000\"" > $WORKINGDIR/../healthcheck/appsettings.json
 if [ $? -eq 0 ]; then
 	echo "done"
 else
