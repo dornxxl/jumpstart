@@ -23,7 +23,7 @@ MONGO_DB="gwdb"
 LOG_PATH="/app/log"
 MONITOR_PATH="/app/data"
 
-echo -n " Generate apiservice configuration file ..."
+echo -n "= Generate apiservice configuration file ..."
 cat $WORKINGDIR/../api/appsettings.json.template | jq -M ".CONF.MongoServer=\"$MONGO_URI\" | .CONF.MongoDb=\"$MONGO_DB\" | .CONF.LogPath=\"$LOG_PATH/api.log\"" > $WORKINGDIR/../api/appsettings.json
 if [ $? -eq 0 ]; then
 	echo "done"
@@ -31,7 +31,7 @@ else
 	echo "fail"
 	exit 1
 fi
-echo -n " Generate foldermonitor configuration file ..."
+echo -n "- Generate foldermonitor configuration file ..."
 cat $WORKINGDIR/../foldermonitor/appetings.json.template | jq -M ".CONF.MongoServer=\"$MONGO_URI\" | .CONF.MongoDb=\"$MONGO_DB\" | .CONF.LogPath=\"$LOG_PATH/foldermonitr.log\" | .CONF.TriggerFolder=\"$MONITOR_PATH/landing/\" | .CONF.ErrorFolder=\"$MONITOR_PATH/error/\" | .CONF.InProgressFolder=\"$MONITOR_PATH/processing/\" | .CONF.CompletedFolder=\"$MONITOR_PATH/processed/\"" > $WORKINGDIR/../foldermonitor/appsettings.json
 if [ $? -eq 0 ]; then
 	echo "done"
@@ -39,7 +39,7 @@ else
 	echo "fail"
 	exit 1
 fi
-echo -n " Generate healthcheck configuration file ..."
+echo -n "- Generate healthcheck configuration file ..."
 cat $WORKINGDIR/../healthcheck/appsetings.json.template | jq -M ".CONF.MongoServer=\"$MONGO_URI\" | .CONF.MongoDb=\"$MONGO_DB\" | .CONF.Host=\"http://apiservice:5000\"" > $WORKINGDIR/../healthcheck/appsetings.json
 if [ $? -eq 0 ]; then
 	echo "done"
@@ -48,3 +48,29 @@ else
 	exit 1
 fi
 
+echo "- Create apiservice docker image"
+pushd $WORKINGDIR/../api
+docker build -t oic/jumpstartvm-apiservice .
+if [ $? -ne 0 ]; then
+	popd
+	exit 1
+fi
+popd
+
+echo "- Create foldermonitor docker image"
+pushd $WORKINGDIR/../foldermonitor
+docker build -t oic/jumpstartvm-foldermonitor .
+if [ $? -ne 0 ]; then
+	popd
+	exit 1
+fi
+popd
+
+echo "- Create healthcheck docker image"
+pushd $WORKING/../healthcheck
+docker build -t oic/jumpstartvm-healthcheck .
+if [ $? -ne 0 ]; then
+	popd
+	exit 1
+fi
+popd
