@@ -23,7 +23,7 @@ MONGO_DB="gwdb"
 LOG_PATH="/app/log"
 MONITOR_PATH="/app/data"
 
-echo -n "= Generate apiservice configuration file ..."
+echo -n "- Generate apiservice configuration file ..."
 cat $WORKINGDIR/../api/appsettings.json.template | jq -M ".CONF.MongoServer=\"$MONGO_URI\" | .CONF.MongoDb=\"$MONGO_DB\" | .CONF.LogPath=\"$LOG_PATH/api.log\"" > $WORKINGDIR/../api/appsettings.json
 if [ $? -eq 0 ]; then
 	echo "done"

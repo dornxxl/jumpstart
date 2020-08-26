@@ -238,71 +238,14 @@ if [ -x $WORKINGDIR/script/chdockerimg.sh ]; then
 fi
 
 #Create Config File for JumpStart Docker
-echo "# Create Jumpstart Docker Image"
-MONGO_URI="mongodb://mongoadmin:$DBPASSWD@policy-db:27017/?connectTimeoutMS=600000&socketTimeoutMS=600000"
-MONGO_DB="gwdb"
-APISERVICE_LOG="/app/log/api.log"
-FOLDERMONITOR_LOG="/app/log/foldermonitor.log"
-FOLDERMONITOR_PATH="/app/data"
-
-echo -n "Generate apiservice Configfile"
-cat $WORKINGDIR/api/appsettings.json.template | jq -M  ".CONF.MongoServer=\"$MONGO_URI\" | .CONF.MongoDb=\"$MONGO_DB\" | .CONF.LogPath=\"$APISERVICE_LOG\"" > $WORKINGDIR/api/appsettings.json
-
-if [ $? -eq 0 ]; then
-	echo " ok"
-else
-	echo " fail"
+if [ ! -x $WORKINGDIR/script/createjmpimg.sh ]; then
+	echo "!! JumpStart image create script not found"
 	exit 1
 fi
-
-echo -n "Generate foldermonitor Configfile"
-cat $WORKINGDIR/foldermonitor/appsettings.json.template | jq -M ".CONF.MongoServer=\"$MONGO_URI\" | .CONF.MongoDb=\"$MONGO_DB\" | .CONF.LogPath=\"$FOLDERMONITOR_LOG\" | .CONF.TriggerFolder=\"$FOLDERMONITOR_PATH/landing/\" | .CONF.ErrorFolder=\"$FOLDERMONITOR_PATH/error/\" | .CONF.InProgressFolder=\"$FOLDERMONITOR_PATH/processing/\" | .CONF.CompletedFolder=\"$FOLDERMONITOR_PATH/processed/\"" > $WORKINGDIR/foldermonitor/appsettings.json
-
-if [ $? -eq 0 ]; then
-	echo " ok"
-else
-	echo " fail"
-	exit 1
-fi
-
-echo -n "Generate healthcheck Configfile"
-cat $WORKINGDIR/healthcheck/appsettings.json.template | jq -M ".CONF.MongoServer=\"$MONGO_URI\" | .CONF.MongoDb=\"$MONGO_DB\" | .CONF.Host=\"http://apiservice:5000\"" > $WORKINGDIR/healthcheck/appsettings.json
-
-if [ $? -eq 0 ]; then
-	echo " ok"
-else
-	echo " fail"
-	exit 1
-fi
-
-#Create JumpStart Docker Image
-
-echo "Generate apiservice Docker image"
-pushd  $WORKINGDIR/api
-docker build -t oic/jumpstartvm-apiservice .
+$WORKINGDIR/script/createjmpimg.sh
 if [ $? -ne 0 ]; then
-	popd
 	exit 1
 fi
-popd
-
-echo "Generate foldermonitor Docker image"
-pushd $WORKINGDIR/foldermonitor
-docker build -t oic/jumpstartvm-foldermonitor .
-if [ $? -ne 0 ]; then
-	popd
-	exit 1
-fi
-popd
-
-echo "Generate healthcheck Docker image"
-pushd $WORKINGDIR/healthcheck
-docker build -t oic/jumpstartvm-healthcheck .
-if [ $? -ne 0 ]; then
-	popd
-	exit 1
-fi
-popd 
 
 # Start Docker
 echo "# Startup Docker Process"
@@ -328,7 +271,7 @@ else
 	exit 1
 fi
 echo "Preconfigure Portainer"
-sleep 10
+sleep 5
 curl -X POST -H  "Content-Type:application/json" \
 	-d "{ \"Username\": \"apiadm\", \"Password\": \"$JMP_APIMGT_PASSWD\" }" \
 	'http://localhost:9000/api/users/admin/init' | jq .
@@ -364,7 +307,7 @@ else
 	echo " Status: Fail"
 	exit 1
 fi
-sleep 10
+sleep 5
 
 echo "Start APIMGT-DB (Postgres)"
 echo "- Create Data volume"
@@ -383,7 +326,7 @@ else
 	echo " Status: Fail"
 	exit 1
 fi
-sleep 10
+sleep 5
 
 echo "Start APIGW (Kong)"
 echo "- Init DB"
@@ -455,7 +398,7 @@ else
 	echo " Status: Fail"
 	exit 1
 fi
-sleep 10
+sleep 5
 
 echo "Start API-Service"
 echo "- Create Log folder"
@@ -536,6 +479,9 @@ if [ -x $WORKINGDIR/script/vsftpinit.sh ]; then
 	if [ $? -ne 0 ]; then
 		exit 1
 	fi
+else 
+	echo "!! VSFTP init script is missing"
+	exit 1
 fi
 
 if [ -x $WORKINGDIR/script/firewall.sh ]; then
@@ -546,6 +492,9 @@ if [ -x $WORKINGDIR/script/firewall.sh ]; then
 		echo "  Status: Fail"
 		exit 1
 	fi
+else
+	echo "!! Firewall script is missing"
+	exit 1
 fi
 
 if [ -f /etc/sudoers.d/apiadm ]; then
