@@ -474,6 +474,13 @@ else
 	exit 1
 fi
 
+if [ -x $WORKINGDIR/script/konginit.sh]; then
+	$WORKINGDIR/script/konginit.sh
+	if [ $? -ne 0 ]; then
+		echo "#API Import Configuration Fail"
+	fi
+fi
+
 if [ -x $WORKINGDIR/script/vsftpinit.sh ]; then
 	$WORKINGDIR/script/vsftpinit.sh "$JMP_FTP_PASSWD"
 	if [ $? -ne 0 ]; then

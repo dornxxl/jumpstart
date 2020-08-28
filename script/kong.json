@@ -1,0 +1,72 @@
+{
+    "csp": {
+      "name": "response-transformer",
+      "config": {
+        "add": {
+          "headers": [
+            "X-Content-Type-Options: nosniff",
+            "Strict-Transport-Security: max-age=63072000",
+            "Content-Security-Policy: default-src 'none'; frame-ancestors 'none'"
+          ]
+        }
+      }
+    },
+    "apis": [
+      {
+        "name": "mypolicy",
+        "service": {
+          "host": "apiservice",
+          "name": "mypolicy",
+          "path": "/mypolicy",
+          "protocol": "http",
+          "port": 5000,
+          "tags": [
+            "oic",
+            "mypolicy"
+          ]
+        },
+        "route": {
+          "name": "mypolicy",
+          "protocols": [
+            "http",
+            "https"
+          ],
+          "methods": [
+            "POST"
+          ],
+          "paths": [
+            "/oicgwservice/mypolicy"
+          ],
+          "strip_path": true
+        }
+      },
+      {
+        "name": "oiccheckpolicy",
+        "service": {
+          "host": "apiservice",
+          "name": "oiccheckpolicy",
+          "path": "/oiccheckpolicy",
+          "protocol": "http",
+          "port": 5000,
+          "tags": [
+            "oic",
+            "oiccheckpolicy"
+          ]
+        },
+        "route": {
+          "name": "oiccheckpolicy",
+          "protocols": [
+            "http",
+            "https"
+          ],
+          "methods": [
+            "POST"
+          ],
+          "paths": [
+            "/oicgwservice/oiccheckpolicy"
+          ],
+          "strip_path": true
+        }
+      }
+    ]
+}
