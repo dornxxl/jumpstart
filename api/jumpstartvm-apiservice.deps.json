@@ -1587,9 +1587,28 @@
           "WindowsBase.dll": {}
         }
       },
+      "AutoMapper/10.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "System.Reflection.Emit": "4.7.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/AutoMapper.dll": {}
+        }
+      },
+      "AutoMapper.Extensions.Microsoft.DependencyInjection/8.0.1": {
+        "dependencies": {
+          "AutoMapper": "10.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.4",
+          "Microsoft.Extensions.Options": "3.1.4"
+        },
+        "compile": {
+          "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+        }
+      },
       "CsvHelper/15.0.5": {
         "dependencies": {
-          "Microsoft.CSharp": "4.5.0"
+          "Microsoft.CSharp": "4.7.0"
         },
         "compile": {
           "lib/netstandard2.1/CsvHelper.dll": {}
@@ -1611,7 +1630,7 @@
           "Microsoft.Extensions.Primitives": "3.1.4"
         }
       },
-      "Microsoft.CSharp/4.5.0": {},
+      "Microsoft.CSharp/4.7.0": {},
       "Microsoft.Extensions.ApiDescription.Server/3.0.0": {},
       "Microsoft.Extensions.Caching.Abstractions/3.1.4": {
         "dependencies": {
@@ -1793,6 +1812,11 @@
       "MongoDB.Libmongocrypt/1.0.0": {
         "compile": {
           "lib/netstandard1.5/MongoDB.Libmongocrypt.dll": {}
+        }
+      },
+      "Newtonsoft.Json/12.0.3": {
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
       "Pipelines.Sockets.Unofficial/2.0.17": {
@@ -2152,7 +2176,7 @@
           "System.Linq.Expressions": "4.1.0",
           "System.ObjectModel": "4.0.12",
           "System.Reflection": "4.3.0",
-          "System.Reflection.Emit": "4.0.1",
+          "System.Reflection.Emit": "4.7.0",
           "System.Reflection.Emit.ILGeneration": "4.3.0",
           "System.Reflection.Primitives": "4.3.0",
           "System.Reflection.TypeExtensions": "4.1.0",
@@ -2260,7 +2284,7 @@
           "System.Linq": "4.3.0",
           "System.ObjectModel": "4.0.12",
           "System.Reflection": "4.3.0",
-          "System.Reflection.Emit": "4.0.1",
+          "System.Reflection.Emit": "4.7.0",
           "System.Reflection.Emit.ILGeneration": "4.3.0",
           "System.Reflection.Emit.Lightweight": "4.3.0",
           "System.Reflection.Extensions": "4.0.1",
@@ -2369,15 +2393,7 @@
           "runtime.any.System.Reflection": "4.3.0"
         }
       },
-      "System.Reflection.Emit/4.0.1": {
-        "dependencies": {
-          "System.IO": "4.3.0",
-          "System.Reflection": "4.3.0",
-          "System.Reflection.Emit.ILGeneration": "4.3.0",
-          "System.Reflection.Primitives": "4.3.0",
-          "System.Runtime": "4.3.0"
-        }
-      },
+      "System.Reflection.Emit/4.7.0": {},
       "System.Reflection.Emit.ILGeneration/4.3.0": {
         "dependencies": {
           "System.Reflection": "4.3.0",
@@ -2724,6 +2740,7 @@
         "dependencies": {
           "Microsoft.Extensions.Caching.Memory": "3.1.4",
           "Microsoft.Extensions.Caching.StackExchangeRedis": "3.1.4",
+          "Newtonsoft.Json": "12.0.3",
           "OICGW_CONF": "1.0.0",
           "OICGW_DL": "1.0.0",
           "System.IO.FileSystem.Watcher": "4.3.0",
@@ -2735,10 +2752,12 @@
       },
       "OICGW_CONF/1.0.0": {
         "dependencies": {
+          "CsvHelper": "15.0.5",
           "Microsoft.Extensions.Configuration": "3.1.4",
           "Microsoft.Extensions.Configuration.Abstractions": "3.1.4",
           "Microsoft.Extensions.Configuration.FileExtensions": "3.1.4",
-          "Microsoft.Extensions.Configuration.Json": "3.1.4"
+          "Microsoft.Extensions.Configuration.Json": "3.1.4",
+          "Newtonsoft.Json": "12.0.3"
         },
         "compile": {
           "OICGW_CONF.dll": {}
@@ -2746,6 +2765,8 @@
       },
       "OICGW_DL/1.0.0": {
         "dependencies": {
+          "AutoMapper": "10.0.0",
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "8.0.1",
           "CsvHelper": "15.0.5",
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "MongoDB.Driver": "2.10.4",
@@ -3029,9 +3050,34 @@
           "jumpstartvm-apiservice.dll": {}
         }
       },
+      "AutoMapper/10.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "System.Reflection.Emit": "4.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/AutoMapper.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.0.0"
+          }
+        }
+      },
+      "AutoMapper.Extensions.Microsoft.DependencyInjection/8.0.1": {
+        "dependencies": {
+          "AutoMapper": "10.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.4",
+          "Microsoft.Extensions.Options": "3.1.4"
+        },
+        "runtime": {
+          "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.1.0"
+          }
+        }
+      },
       "CsvHelper/15.0.5": {
         "dependencies": {
-          "Microsoft.CSharp": "4.5.0"
+          "Microsoft.CSharp": "4.7.0"
         },
         "runtime": {
           "lib/netstandard2.1/CsvHelper.dll": {
@@ -3059,7 +3105,7 @@
           "Microsoft.Extensions.Primitives": "3.1.4"
         }
       },
-      "Microsoft.CSharp/4.5.0": {},
+      "Microsoft.CSharp/4.7.0": {},
       "Microsoft.Extensions.ApiDescription.Server/3.0.0": {},
       "Microsoft.Extensions.Caching.Abstractions/3.1.4": {
         "dependencies": {
@@ -3300,6 +3346,14 @@
           "lib/netstandard1.5/MongoDB.Libmongocrypt.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Newtonsoft.Json/12.0.3": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.3.23909"
           }
         }
       },
@@ -3683,7 +3737,7 @@
           "System.Linq.Expressions": "4.1.0",
           "System.ObjectModel": "4.0.12",
           "System.Reflection": "4.3.0",
-          "System.Reflection.Emit": "4.0.1",
+          "System.Reflection.Emit": "4.7.0",
           "System.Reflection.Emit.ILGeneration": "4.3.0",
           "System.Reflection.Primitives": "4.3.0",
           "System.Reflection.TypeExtensions": "4.1.0",
@@ -3787,7 +3841,7 @@
           "System.Linq": "4.3.0",
           "System.ObjectModel": "4.0.12",
           "System.Reflection": "4.3.0",
-          "System.Reflection.Emit": "4.0.1",
+          "System.Reflection.Emit": "4.7.0",
           "System.Reflection.Emit.ILGeneration": "4.3.0",
           "System.Reflection.Emit.Lightweight": "4.3.0",
           "System.Reflection.Extensions": "4.0.1",
@@ -3896,15 +3950,7 @@
           "runtime.any.System.Reflection": "4.3.0"
         }
       },
-      "System.Reflection.Emit/4.0.1": {
-        "dependencies": {
-          "System.IO": "4.3.0",
-          "System.Reflection": "4.3.0",
-          "System.Reflection.Emit.ILGeneration": "4.3.0",
-          "System.Reflection.Primitives": "4.3.0",
-          "System.Runtime": "4.3.0"
-        }
-      },
+      "System.Reflection.Emit/4.7.0": {},
       "System.Reflection.Emit.ILGeneration/4.3.0": {
         "dependencies": {
           "System.Reflection": "4.3.0",
@@ -4264,6 +4310,7 @@
         "dependencies": {
           "Microsoft.Extensions.Caching.Memory": "3.1.4",
           "Microsoft.Extensions.Caching.StackExchangeRedis": "3.1.4",
+          "Newtonsoft.Json": "12.0.3",
           "OICGW_CONF": "1.0.0",
           "OICGW_DL": "1.0.0",
           "System.IO.FileSystem.Watcher": "4.3.0",
@@ -4275,10 +4322,12 @@
       },
       "OICGW_CONF/1.0.0": {
         "dependencies": {
+          "CsvHelper": "15.0.5",
           "Microsoft.Extensions.Configuration": "3.1.4",
           "Microsoft.Extensions.Configuration.Abstractions": "3.1.4",
           "Microsoft.Extensions.Configuration.FileExtensions": "3.1.4",
-          "Microsoft.Extensions.Configuration.Json": "3.1.4"
+          "Microsoft.Extensions.Configuration.Json": "3.1.4",
+          "Newtonsoft.Json": "12.0.3"
         },
         "runtime": {
           "OICGW_CONF.dll": {}
@@ -4286,6 +4335,8 @@
       },
       "OICGW_DL/1.0.0": {
         "dependencies": {
+          "AutoMapper": "10.0.0",
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "8.0.1",
           "CsvHelper": "15.0.5",
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "MongoDB.Driver": "2.10.4",
@@ -4304,6 +4355,20 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "AutoMapper/10.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-T09NoqMZBqw0/JEauXulxnmmerl0Zj03e0r6VCcJ0LURWBIaYxZPPoiDv8bHf5Y4x2xcXJp4JPXoCaeOMJfHEA==",
+      "path": "automapper/10.0.0",
+      "hashPath": "automapper.10.0.0.nupkg.sha512"
+    },
+    "AutoMapper.Extensions.Microsoft.DependencyInjection/8.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-hhUzmc8Ld7wCuVHJFodsxtPmFqBAhB6nUNQUgaMF3uamQdxOLxntG0dwv+5ApC67GABa8Oay8MEYGg5IgVZP1Q==",
+      "path": "automapper.extensions.microsoft.dependencyinjection/8.0.1",
+      "hashPath": "automapper.extensions.microsoft.dependencyinjection.8.0.1.nupkg.sha512"
     },
     "CsvHelper/15.0.5": {
       "type": "package",
@@ -4333,12 +4398,12 @@
       "path": "microsoft.aspnetcore.http.features/2.2.0",
       "hashPath": "microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512"
     },
-    "Microsoft.CSharp/4.5.0": {
+    "Microsoft.CSharp/4.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-kaj6Wb4qoMuH3HySFJhxwQfe8R/sJsNJnANrvv8WdFPMoNbKY5htfNscv+LHCu5ipz+49m2e+WQXpLXr9XYemQ==",
-      "path": "microsoft.csharp/4.5.0",
-      "hashPath": "microsoft.csharp.4.5.0.nupkg.sha512"
+      "sha512": "sha512-pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
+      "path": "microsoft.csharp/4.7.0",
+      "hashPath": "microsoft.csharp.4.7.0.nupkg.sha512"
     },
     "Microsoft.Extensions.ApiDescription.Server/3.0.0": {
       "type": "package",
@@ -4514,6 +4579,13 @@
       "sha512": "sha512-zkcsra5riDiKXqOiCKskycakpbO5RYkuUWG+z2AZML3A4NShvAs/D3InwkxH0OcbjZQOWo763Hjdmhr0AaylcA==",
       "path": "mongodb.libmongocrypt/1.0.0",
       "hashPath": "mongodb.libmongocrypt.1.0.0.nupkg.sha512"
+    },
+    "Newtonsoft.Json/12.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "path": "newtonsoft.json/12.0.3",
+      "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
     },
     "Pipelines.Sockets.Unofficial/2.0.17": {
       "type": "package",
@@ -5061,12 +5133,12 @@
       "path": "system.reflection/4.3.0",
       "hashPath": "system.reflection.4.3.0.nupkg.sha512"
     },
-    "System.Reflection.Emit/4.0.1": {
+    "System.Reflection.Emit/4.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-P2wqAj72fFjpP6wb9nSfDqNBMab+2ovzSDzUZK7MVIm54tBJEPr9jWfSjjoTpPwj1LeKcmX3vr0ttyjSSFM47g==",
-      "path": "system.reflection.emit/4.0.1",
-      "hashPath": "system.reflection.emit.4.0.1.nupkg.sha512"
+      "sha512": "sha512-VR4kk8XLKebQ4MZuKuIni/7oh+QGFmZW3qORd1GvBq/8026OpW501SzT/oypwiQl4TvT8ErnReh/NzY9u+C6wQ==",
+      "path": "system.reflection.emit/4.7.0",
+      "hashPath": "system.reflection.emit.4.7.0.nupkg.sha512"
     },
     "System.Reflection.Emit.ILGeneration/4.3.0": {
       "type": "package",

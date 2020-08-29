@@ -8,31 +8,8 @@
   },
   "AllowedHosts": "*",
   "CONF": {
-
-    "initialTimerInterval": 5,
-    "delayedTimerAddition": 1,
-    "permittedSecondsBetweenReadyEvents": 60,
-
-    "LogFSWEvents": false,
-    "LogFileReadyEvents": true,
-
-    "RedisIP": "192.168.58.132",
-    "RedisInstance": "master",
-
-    "TriggerFolder": "G:\\Test\\",
-    "ErrorFolder": "G:\\ERROR\\",
-    "InProgressFolder": "G:\\InProgress\\",
-    "CompletedFolder": "G:\\Completed\\",
-
-    "LogPath": "G:\\Result\\LogTest.txt",
-    "DATATypes": [ "per", "pol", "rai" ],
-    "MaxFileList": "3",
-    "FSWUseRegex": false,
-
-    "CPUMaxCore": 4,
-    "FileTypes": [ ".txt", ".csv" ],
-
-    "TargetAPIURL": "",
+    
+    "IsKeepFullLogAccess": "1",
     "MongoServer": "mongodb://192.168.137.253:27017/?connectTimeoutMS=600000&socketTimeoutMS=600000",
     "MongoDb": "gwdb"
 
