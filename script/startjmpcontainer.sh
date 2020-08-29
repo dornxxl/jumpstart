@@ -43,7 +43,7 @@ fi
 
 echo "+ Start MongoDB (Policy-DB)"
 echo "  - Create ConfigDB volume"
-docker volume create policy-configdb
+docker volume create policy-confdb
 if [ $? -ne 0 ]; then
     echo "    Staus: Fail"
     exit 1
