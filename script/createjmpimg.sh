@@ -49,7 +49,7 @@ else
 	exit 1
 fi
 echo -n "- Generate healthcheck configuration file ..."
-cat $WORKINGDIR/../healthcheck/appsettings.json.template | jq -M ".CONF.MongoServer=\"$MONGO_URI\" | .CONF.MongoDb=\"$MONGO_DB\" | .CONF.Host=\"http://apiservice:5000\" | .CONF.DefaultPassword=\"$JMP_HEALTHCHECK_PASSWD\"" > $WORKINGDIR/../healthcheck/appsettings.json
+cat $WORKINGDIR/../healthcheck/appsettings.json.template | jq -M ".CONF.MongoServer=\"$MONGO_URI\" | .CONF.MongoDb=\"$MONGO_DB\" | .CONF.Host=\"http://apiservice:5000/\" | .CONF.DefaultPassword=\"$JMP_HEALTHCHECK_PASSWD\"" > $WORKINGDIR/../healthcheck/appsettings.json
 if [ $? -eq 0 ]; then
 	echo "done"
 else
