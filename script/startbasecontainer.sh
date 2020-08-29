@@ -82,8 +82,8 @@ echo "    Status: Success"
 sleep 5
 
 echo "  + Preconfigure Portainer"
-curl -sX POST -H "Content-Type: application/json" -d "{ \"Username\": \"apiadm\", \"Password\": \"$JMP_APIMGT_PASSWD\" }" http://localhost:9000/api/users/admin/init | jq .
-PToken=`curl -sX POST -H "Content-Type: application/json" -d "{ \"Username\": \"apiadm\", \"Password\": \"$JMP_APIMGT_PASSWD\" }" http://localhost:9000/api/auth | jq -r '.jwt'`
+curl -sX POST -H "Content-Type: application/json" -d "{ \"Username\": \"apiadm\", \"Password\": \"$JMP_PORTAINER_PASSWD\" }" http://localhost:9000/api/users/admin/init | jq .
+PToken=`curl -sX POST -H "Content-Type: application/json" -d "{ \"Username\": \"apiadm\", \"Password\": \"$JMP_PORTAINER_PASSWD\" }" http://localhost:9000/api/auth | jq -r '.jwt'`
 if [ ! -z "$PToken" ]; then
     curl -sX POST -H "Accept: application/json" -H "Content-Type: multipart/form-data" -H "Authorization: Bearer $PToken" -F "Name=Local" -F "EndpointType=1" http://localhost:9000/api/endpoints | jq .
     if [ $? -ne 0 ]; then

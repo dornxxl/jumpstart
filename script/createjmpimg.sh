@@ -18,6 +18,15 @@ if [ -z "$MONGO_INITDB_ROOT_PASSWORD" ]; then
 	exit 1
 fi
 
+if [ ! -f "$WORKINGDIR/../jumpstart.conf" ]; then
+        echo " jumpstart.conf is missing"
+fi
+source $WORKINGDIR/../jumpstart.conf
+if [ -z "JMP_HEALTHCHECK_PASSWD" ]; then
+        echo " \$JMP_HEALTHCHECK_PASSWD var is not exists"
+        exit 1
+fi
+
 MONGO_URI="mongodb://$MONGO_INITDB_ROOT_USERNAME:$MONGO_INITDB_ROOT_PASSWORD@policy-db:27017/?connetTimeoutMS=600000&socketTimeoutMS=600000"
 MONGO_DB="gwdb"
 LOG_PATH="/app/log"
@@ -40,7 +49,7 @@ else
 	exit 1
 fi
 echo -n "- Generate healthcheck configuration file ..."
-cat $WORKINGDIR/../healthcheck/appsettings.json.template | jq -M ".CONF.MongoServer=\"$MONGO_URI\" | .CONF.MongoDb=\"$MONGO_DB\" | .CONF.Host=\"http://apiservice:5000\"" > $WORKINGDIR/../healthcheck/appsettings.json
+cat $WORKINGDIR/../healthcheck/appsettings.json.template | jq -M ".CONF.MongoServer=\"$MONGO_URI\" | .CONF.MongoDb=\"$MONGO_DB\" | .CONF.Host=\"http://apiservice:5000\" | .CONF.DefaultPassword=\"$JMP_HEALTHCHECK_PASSWD\"" > $WORKINGDIR/../healthcheck/appsettings.json
 if [ $? -eq 0 ]; then
 	echo "done"
 else

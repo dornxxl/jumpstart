@@ -14,21 +14,48 @@ if [ -s "$WORKINGDIR/jumpstart.conf" ]; then
 	source $WORKINGDIR/jumpstart.conf
 else
 	echo "Config file is missing"
-	exit 1;
+	exit 1
 fi
 
 # Validate Config file
-echo -n "\$JMP_APIMGT_PASSWD : "
-if [ ! -z "$JMP_APIMGT_PASSWD" ]; then
-	$WORKINGDIR/script/pwvalidate.sh "$JMP_APIMGT_PASSWD"
+echo -n "\$JMP_PORTAINER_PASSWD : "
+if [ ! -z "$JMP_PORTAINER_PASSWD" ]; then
+	$WORKINGDIR/script/pwvalidate.sh "$JMP_PORTAINER_PASSWD"
 	if [ $? -eq 0 ]; then
 		echo "ok"
 	else
-		exit 1;
+		exit 1
 	fi
 else
-	echo "Missing  \$JMP_APIMGT_PASSWD Parameter"
-	exit 1;
+	echo "Missing  \$JMP_PORTAINER_PASSWD Parameter"
+	exit 1
+fi
+
+
+echo -n "\$JMP_FTP_PASSWD :"
+if [ ! -z "$JMP_FTP_PASSWD" ]; then
+	$WORKINGDIR/script/pwvalidate.sh "$JMP_FTP_PASSWD"
+	if [ $? -eq 0 ]; then
+		echo " ok"
+	else
+		exit 1
+	fi
+else
+	echo "Missing \$JMP_FTP_PASSWD Parameter"
+	exit 1
+fi
+
+echo -n "\$JMP_HEALTHCHECK_PASSWD :"
+if [ ! -z "$JMP_HEALTHCHECK_PASSWD" ]; then
+	$WORKINGDIR/script/pwvalidate.sh "$JMP_HEALTHCHECK_PASSWD"
+	if [ $? -eq 0 ]; then
+		echo " ok"
+	else
+		exit 1
+	fi
+else
+	echo "Missing \$JMP_HEALTHCHECK_PASSWD Parameter"
+	exit 1
 fi
 
 echo -n "\$JMP_APINETWORK : "
@@ -42,22 +69,8 @@ if [ ! -z "$JMP_APINETWORK" ]; then
 	fi
 else
 	echo "Missing \$JMP_APINETWORK Parameter"
-	exit 1;	
+	exit 1
 fi
-
-echo -n "\$JMP_FTP_PASSWD :"
-if [ ! -z "$JMP_FTP_PASSWD" ]; then
-	$WORKINGDIR/script/pwvalidate.sh "$JMP_FTP_PASSWD"
-	if [ $? -eq 0 ]; then
-		echo " ok"
-	else
-		exit 1
-	fi
-else
-	echo "Missing \$JMP_FTP_PASSWD Parameter"
-	exit 1;
-fi
-
 
 echo "\$JMP_IP_WHITELIST :"
 if [ ! -z "$JMP_IP_WHITELIST" ]; then
@@ -77,7 +90,7 @@ if [ ! -z "$JMP_IP_WHITELIST" ]; then
 	done
 else
 	echo "Missing \$JMP_IP_WHITELIST Parameter"
-	exit 1;
+	exit 1
 fi
 
 
@@ -268,11 +281,13 @@ if [ $? -ne 0 ]; then
 fi
 
 #Import Kong Configuration
-if [ -x $WORKINGDIR/script/konginit.sh]; then
-	$WORKINGDIR/script/konginit.sh
-	if [ $? -ne 0 ]; then
-		echo "#API Import Configuration Fail"
-	fi
+if [ ! -x  $WORKINGDIR/script/konginit.sh]; then
+	echo "!! Kong Preconfig script is missing"
+	exit 1
+fi
+$WORKINGDIR/script/konginit.sh
+if [ $? -ne 0 ]; then
+	exit 1
 fi
 
 #Add user to vsftp
