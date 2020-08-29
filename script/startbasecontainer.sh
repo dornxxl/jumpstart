@@ -154,7 +154,8 @@ if [ $? -ne 0 ]; then
 fi
 echo "    Status: Success"
 echo "  + Initial Database"
-docker run --rm --network api-net pantsel/konga:0.14.9 -c prepare -a postgres -u "postgres://apimgt:$DBPASSWD@apimgt-db/apimgt"
+source $WORKINGDIR/../dockerconf/apimgt.env 
+docker run --rm --network api-net pantsel/konga:0.14.9 -c prepare -a postgres -u "$DB_URI"
 if [ $? -ne 0 ]; then
     echo "    Status: Fail"
     exit 1
