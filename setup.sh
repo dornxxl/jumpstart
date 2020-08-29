@@ -281,7 +281,7 @@ if [ $? -ne 0 ]; then
 fi
 
 #Import Kong Configuration
-if [ ! -x  $WORKINGDIR/script/konginit.sh]; then
+if [ ! -x  $WORKINGDIR/script/konginit.sh ]; then
 	echo "!! Kong Preconfig script is missing"
 	exit 1
 fi
