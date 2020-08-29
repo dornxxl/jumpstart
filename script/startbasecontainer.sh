@@ -49,7 +49,7 @@ if [[ ! -z "$JMP_APINETWORK" && "$JMP_APINETWORK" =~ .*"/".* ]]; then
         exit 1
     fi
     docker network create --subnet $docker_net api-net
-    if [ $? -ne 0]; then
+    if [ $? -ne 0 ]; then
         echo "  Fail: Unable to create Container Internal Network"
         exit 1
     fi
@@ -138,7 +138,7 @@ if [ $? -ne 0 ]; then
 fi
 echo "    Status: Success"
 echo "  + Start Docker"
-docker run -d --name apigw --restart always --ntework api-net --env-file $WORKINGDIR/../dockerconf/apigw.env -p 80:8000 -p 443:8443 -p 127.0.0.1:8001:8001 kong:2.1
+docker run -d --name apigw --restart always --network api-net --env-file $WORKINGDIR/../dockerconf/apigw.env -p 80:8000 -p 443:8443 -p 127.0.0.1:8001:8001 kong:2.1
 if [ $? -ne 0 ]; then
     echo "    Status: Fail"
     exit 1
