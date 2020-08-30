@@ -34,7 +34,7 @@ if [ ! -z "$1" ]; then
 		cidr=`$WORKINGDIR/cidr.sh "$network"`
 		if [ $? -eq 0 ]; then
 			echo "  $cidr ok"
-			cidrs+=$cidr
+			cidrs+=" $cidr"
 			if [ "$cidr" = "$LOCALNET" ]; then
 				local_net_in_whitelist=0
 			fi
