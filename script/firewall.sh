@@ -69,13 +69,12 @@ sudo ufw --force reset
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 
-# Limit number of connection to SSH
-sudo ufw limit SSH
 # Permit Public Access
 sudo ufw allow APIGW
 # White List for Protect Service
 for net in ${cidrs[@]}
 do
+	sudo ufw limit from $net to any app SSH
 	sudo ufw allow from $net to any app APIMGT
 	sudo ufw allow from $net to any app DOCKERMGT
 	sudo ufw allow from $net to any app FTP
