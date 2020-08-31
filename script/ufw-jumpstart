@@ -16,7 +16,7 @@ ports=9000/tcp
 [FTP]
 title=FTP Service for file upload
 description=FTP Service for file upload
-ports=20,21/tcp
+ports=20,21,20100:20110/tcp
 
 [HEALTHCHECK]
 title=Jump Start Health check
