@@ -30,6 +30,14 @@ else
 	echo " Status: Fail"
 	exit 1
 fi
+echo "- Generate Certificate"
+sudo openssl req -x509 -nodes -days 1780 -newkey rsa:2048 -keyout /etc/ssl/private/vsftp.key -out /etc/ssl/private/vsftp.key -subj "/C=TH/ST=Bangkok/L=Chatuchak/O=Office of Insurance Commission/OU=JumpStart/CN=$(hostname)/emailAddress=root@localhost"
+if [ $? -eq 0 ]; then
+	echo " Status: Success"
+else
+	echo " Status: Fail"
+	exit 1
+fi
 echo "- Enable and Start Service"
 sudo systemctl enable vsftpd.service --now
 if [ $? -eq 0 ]; then
