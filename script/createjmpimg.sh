@@ -98,7 +98,7 @@ popd
 echo "- Create healthcheck docker image"
 healthchktags=$(jq -r 'healthcheck.tags[]' $WORKINGDIR/../appversion.json)
 healthchkbuildimage='docker build -t oicthailand/jumpstartvm-healthcheck'
-for healthchktag in ${healthchktahs[@]}
+for healthchktag in ${healthchktags[@]}
 do
 	healthchkbuildimage+=" -t oicthailand/jumpstartvm-healthcheck:${healthchktag}"
 done
