@@ -73,7 +73,7 @@ else
     echo "exists"
 fi
 echo  "  + Starting Docker"
-docker run -d --name portainer --restart always -e "TZ=Asia/Bangkok" -v /opt/portainer:/data -v /var/run/docker.sock:/var/run/docker.sock -p 9000:9000 portainer/portainer:1.24.1
+docker run -d --name portainer --restart always -e "TZ=Asia/Bangkok" -v /opt/portainer:/data -v /var/run/docker.sock:/var/run/docker.sock -p 9000:9000 portainer/portainer-ce:latest
 if [ $? -ne 0 ]; then
     echo "    Status: Fail"
     exit 1

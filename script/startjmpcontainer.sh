@@ -77,7 +77,7 @@ else
     echo "    Status: Success"
 fi 
 echo "  - Start Docker"
-docker run -d --name apiservice --restart always --network api-net --env-file $WORKINGDIR/../dockerconf/apiservice.env -v /var/log/jumpvm/api:/app/log oic/jumpstartvm-apiservice
+docker run -d --name apiservice --restart always --network api-net --env-file $WORKINGDIR/../dockerconf/apiservice.env -v /var/log/jumpvm/api:/app/log oicthailand/jumpstartvm-apiservice:latest
 if [ $? -ne 0 ]; then
     echo "    Status: Fail"
     exit 1
@@ -104,7 +104,7 @@ if [ $? -ne 0 ]; then
 fi
 echo "    Status: Success"
 echo "  - Start Docker"
-docker run -d --name foldermonitor --restart always --network api-net --env-file $WORKINGDIR/../dockerconf/foldermonitor.env -v /var/ftphome:/app/data -v /var/log/jumpvm/foldermonitor:/app/log oic/jumpstartvm-foldermonitor
+docker run -d --name foldermonitor --restart always --network api-net --env-file $WORKINGDIR/../dockerconf/foldermonitor.env -v /var/ftphome:/app/data -v /var/log/jumpvm/foldermonitor:/app/log oicthailand/jumpstartvm-foldermonitor:latest
 if [ $? -ne 0 ]; then
     echo "    Status: Fail"
     exit 1
@@ -124,7 +124,7 @@ else
     echo "    Staus: Success"
 fi
 echo "  - Start Docker"
-docker run -d --name healthcheck --restart always --network api-net --env-file $WORKINGDIR/../dockerconf/healthcheck.env -v /var/log/jumpvm/healthcheck:/app/log -p 8080:8080 oic/jumpstartvm-healthcheck
+docker run -d --name healthcheck --restart always --network api-net --env-file $WORKINGDIR/../dockerconf/healthcheck.env -v /var/log/jumpvm/healthcheck:/app/log -p 8080:8080 oicthailand/jumpstartvm-healthcheck:latest
 if [ $? -ne 0 ]; then
     echo "    Status: Fail"
     exit 1

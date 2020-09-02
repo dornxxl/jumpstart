@@ -27,6 +27,12 @@ if [ -z "JMP_HEALTHCHECK_PASSWD" ]; then
         exit 1
 fi
 
+if [ ! -f "$WORKINGDIR/../appversion.json" ]; then
+	echo " appversion.json is missing"
+	exit 1
+fi 
+
+
 MONGO_URI="mongodb://$MONGO_INITDB_ROOT_USERNAME:$MONGO_INITDB_ROOT_PASSWORD@policy-db:27017/?connetTimeoutMS=600000&socketTimeoutMS=600000"
 MONGO_DB="gwdb"
 LOG_PATH="/app/log"
@@ -58,8 +64,15 @@ else
 fi
 
 echo "- Create apiservice docker image"
+apitags=$(jq -r '.apiservice.tags[]' $WORKINGDIR/../appversion.json)
+apibuildimage='docker build -t oicthailand/jumpstartvm-apiservice'
+for apitag in ${apitags[@]}
+do
+	apibuildimage+=" -t oicthailand/jumpstartvm-apiservice:${apitag}"
+done
+apibuildimage+=" ."
 pushd $WORKINGDIR/../api
-docker build -t oic/jumpstartvm-apiservice .
+eval $apibuildimage
 if [ $? -ne 0 ]; then
 	popd
 	exit 1
@@ -67,8 +80,15 @@ fi
 popd
 
 echo "- Create foldermonitor docker image"
+foldermontags=$(jq -r '.foldermonitor.tags[]' $WORKINGDIR/../appversion.json)
+foldermonbuildimage='docker build -t oicthailand/jumpstartvm-foldermonitor'
+for foldermontag in ${foldermontags[@]}
+do
+	foldermonbuildimage+=" -t oicthailand/jumpstartvm-foldermonitor:${foldermontag}"
+done
+foldermonbuildimage+=" ."
 pushd $WORKINGDIR/../foldermonitor
-docker build -t oic/jumpstartvm-foldermonitor .
+eval $foldermonbuildimage
 if [ $? -ne 0 ]; then
 	popd
 	exit 1
@@ -76,8 +96,15 @@ fi
 popd
 
 echo "- Create healthcheck docker image"
+healthchktags=$(jq -r 'healthcheck.tags[]' $WORKINGDIR/../appversion.json)
+healthchkbuildimage='docker build -t oicthailand/jumpstartvm-healthcheck'
+for healthchktag in ${healthchktahs[@]}
+do
+	healthchkbuildimage+=" -t oicthailand/jumpstartvm-healthcheck:${healthchktag}"
+done
+healthchkbuildimage+=" ."
 pushd $WORKINGDIR/../healthcheck
-docker build -t oic/jumpstartvm-healthcheck .
+eval $healthchkbuildimage
 if [ $? -ne 0 ]; then
 	popd
 	exit 1

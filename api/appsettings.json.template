@@ -10,7 +10,7 @@
   "CONF": {
     
     "IsKeepFullLogAccess": "1",
-    "MongoServer": "mongodb://192.168.137.253:27017/?connectTimeoutMS=600000&socketTimeoutMS=600000",
+    "MongoServer": "mongodb://192.168.108.150:27017/?connectTimeoutMS=600000&socketTimeoutMS=600000",
     "MongoDb": "gwdb"
 
   }

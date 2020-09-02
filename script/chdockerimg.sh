@@ -1,5 +1,5 @@
 #!/bin/bash
-dockerimgs=("kong:2.1" "mcr.microsoft.com/dotnet/core/aspnet:3.1" "mongo:4.2.8" "postgres:11.8" "portainer/portainer:1.24.1" "pantsel/konga:0.14.9")
+dockerimgs=("kong:2.1" "mcr.microsoft.com/dotnet/core/aspnet:3.1" "mongo:4.2.8" "postgres:11.8" "portainer/portainer-ce:latest" "pantsel/konga:0.14.9")
 dkimgflag=0
 for img in ${dockerimgs[@]} 
 do
