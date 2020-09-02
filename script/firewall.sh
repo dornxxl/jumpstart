@@ -80,4 +80,9 @@ do
 	sudo ufw allow from $net to any app FTP
 	sudo ufw allow from $net to any app HEALTHCHECK
 done
+sudo ufw deny SSH
+sudo ufw deny APIMGT
+sudo ufw deny DOCKERMGT
+sudo ufw deny FTP
+sudo ufw deny HEALTHCHECK
 sudo ufw enable
