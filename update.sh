@@ -15,7 +15,7 @@ echo "+ Checking Docker Configuration"
 pushd $WORKINGDIR/dockerconf
 for dockerconf in ${dockerconfs[@]}
 do
-    if[ ! -f "$dockerconf" ]; then
+    if [ ! -f "$dockerconf" ]; then
         echo "  !!! Docker ENV file : ${dockerconf} is missing"
         popd
         exit 1
@@ -47,7 +47,7 @@ fi
 #Check Policy-DB is exists
 echo "+ Check Policy DB Container"
 status=`docker ps -a -f "name=^policy-db\$" --format "{{.Status}}"` 
-if [ -z $status ]; then
+if [ -z "$status" ]; then
     echo "  Policy DB Container is not exists ... Abort!"
     exit 1
 fi
@@ -62,13 +62,20 @@ if [ ! "${REPLY,,}" = "y" ]; then
         echo "Abort"
         exit 1
 fi 
+echo ""
 echo "  Removing Container"
 for container in ${jumpcontainers[@]}
 do
-    docker rm --force  $container
-    if [ $? -ne 0 ]; then
-        echo " Remove $container failed"
-        exit 1
+    status=`docker ps -a -f "name=^${container}\$" --format "{{.Status}}"`
+    if [ ! -z "$status" ]; then	
+    	docker rm --force  $container
+    	if [ $? -ne 0 ]; then
+        	echo " Remove $container failed"
+        	exit 1
+    	fi
+	echo "  -> $container removed"
+     else 
+	echo "  -> $container not exists"	     
     fi
 done
 sleep 5
@@ -87,7 +94,7 @@ else
     echo "    Status: Success"
 fi 
 echo "  - Start Docker"
-docker run -d --name apiservice --restart always --network api-net --env-file $WORKINGDIR/../dockerconf/apiservice.env -v /var/log/jumpvm/api:/app/log oicthailand/jumpstartvm-apiservice:latest
+docker run -d --name apiservice --restart always --network api-net --env-file $WORKINGDIR/dockerconf/apiservice.env -v /var/log/jumpvm/api:/app/log oicthailand/jumpstartvm-apiservice:latest
 if [ $? -ne 0 ]; then
     echo "    Status: Fail"
     exit 1
@@ -114,7 +121,7 @@ if [ $? -ne 0 ]; then
 fi
 echo "    Status: Success"
 echo "  - Start Docker"
-docker run -d --name foldermonitor --restart always --network api-net --env-file $WORKINGDIR/../dockerconf/foldermonitor.env -v /var/ftphome:/app/data -v /var/log/jumpvm/foldermonitor:/app/log oicthailand/jumpstartvm-foldermonitor:latest
+docker run -d --name foldermonitor --restart always --network api-net --env-file $WORKINGDIR/dockerconf/foldermonitor.env -v /var/ftphome:/app/data -v /var/log/jumpvm/foldermonitor:/app/log oicthailand/jumpstartvm-foldermonitor:latest
 if [ $? -ne 0 ]; then
     echo "    Status: Fail"
     exit 1
@@ -134,7 +141,7 @@ else
     echo "    Staus: Success"
 fi
 echo "  - Start Docker"
-docker run -d --name healthcheck --restart always --network api-net --env-file $WORKINGDIR/../dockerconf/healthcheck.env -v /var/log/jumpvm/healthcheck:/app/log -p 8080:8080 oicthailand/jumpstartvm-healthcheck:latest
+docker run -d --name healthcheck --restart always --network api-net --env-file $WORKINGDIR/dockerconf/healthcheck.env -v /var/log/jumpvm/healthcheck:/app/log -p 8080:8080 oicthailand/jumpstartvm-healthcheck:latest
 if [ $? -ne 0 ]; then
     echo "    Status: Fail"
     exit 1
