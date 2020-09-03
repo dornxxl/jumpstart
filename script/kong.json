@@ -68,5 +68,33 @@
           "strip_path": true
         }
       }
+    ],
+    "users": [
+      { 
+        "name": "mypolicyapplication",
+        "oauth2" : { 
+          "name": "oiccheckpolicyoauth2",
+          "redirect_uris": "http://google.com"
+        }
+      },
+      {
+        "name": "oiccheckpolicyapplication",
+        "oauth2" : { 
+          "name": "oiccheckpolicyoauth2",
+          "redirect_uris": "http://google.com"
+        }
+      }
+    ],
+    "acls":[
+      {
+        "name": "mypolicyaclgroup",
+        "users": [ "mypolicyapplication" ],
+        "routes": [ "mypolicy" ]
+      },
+      {
+        "name": "oiccheckpolicygroup",
+        "users": [ "oiccheckpolicyapplication" ],
+        "routes": [ "oiccheckpolicy" ]
+      }
     ]
 }
